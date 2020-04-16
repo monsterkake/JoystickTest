@@ -11,8 +11,8 @@
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
-#include <QtWidgets/QGridLayout>
-#include <QtWidgets/QListWidget>
+#include <QtWidgets/QLabel>
+#include <QtWidgets/QPushButton>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -20,23 +20,20 @@ QT_BEGIN_NAMESPACE
 class Ui_Widget
 {
 public:
-    QGridLayout *gridLayout;
-    QListWidget *listWidget;
+    QPushButton *pushButton;
+    QLabel *label;
 
     void setupUi(QWidget *Widget)
     {
         if (Widget->objectName().isEmpty())
             Widget->setObjectName(QStringLiteral("Widget"));
-        Widget->resize(400, 300);
-        gridLayout = new QGridLayout(Widget);
-        gridLayout->setSpacing(6);
-        gridLayout->setContentsMargins(11, 11, 11, 11);
-        gridLayout->setObjectName(QStringLiteral("gridLayout"));
-        listWidget = new QListWidget(Widget);
-        listWidget->setObjectName(QStringLiteral("listWidget"));
-
-        gridLayout->addWidget(listWidget, 0, 0, 1, 1);
-
+        Widget->resize(841, 636);
+        pushButton = new QPushButton(Widget);
+        pushButton->setObjectName(QStringLiteral("pushButton"));
+        pushButton->setGeometry(QRect(160, 140, 80, 21));
+        label = new QLabel(Widget);
+        label->setObjectName(QStringLiteral("label"));
+        label->setGeometry(QRect(40, 30, 47, 13));
 
         retranslateUi(Widget);
 
@@ -46,6 +43,8 @@ public:
     void retranslateUi(QWidget *Widget)
     {
         Widget->setWindowTitle(QApplication::translate("Widget", "Widget", nullptr));
+        pushButton->setText(QApplication::translate("Widget", "PushButton", nullptr));
+        label->setText(QApplication::translate("Widget", "TextLabel", nullptr));
     } // retranslateUi
 
 };

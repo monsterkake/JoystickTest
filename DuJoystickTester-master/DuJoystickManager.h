@@ -28,7 +28,9 @@ enum JoystickButton
 enum JoysitckAxis
 {
     AXIS_HORIZONTAL,
-    AXIS_VERTICAL
+    AXIS_VERTICAL,
+    AXIS_HV,
+    NOT_AXIS
 };
 
 class DuJoystickManager : public QThread
@@ -37,9 +39,10 @@ class DuJoystickManager : public QThread
 public:
     DuJoystickManager(QObject *parent = nullptr);
 signals:
-    void SDL_joyButtonDown(int);
+    void SDL_joyButtonDown(int, int, int);
 protected:
     void run() override;
+
 };
 
 #endif // DUJOYSTICKMANAGER_H

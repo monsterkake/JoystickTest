@@ -16,11 +16,14 @@ class Widget : public QWidget
 public:
     explicit Widget(QWidget *parent = nullptr);
     ~Widget();
+private slots:
+    void on_pushButton_clicked();
+
 private:
     Ui::Widget *ui;
     DuJoystickManager *mJoyManager;
 
-    void manageJoystick(int button);
+    void manageJoystick(int speed,int axis,int button);
 };
 
 #endif // WIDGET_H

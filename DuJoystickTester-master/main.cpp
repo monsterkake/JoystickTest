@@ -8,5 +8,6 @@ int main(int argc, char *argv[])
     SDL_Init(SDL_INIT_JOYSTICK);
     Widget w;
     w.show();
+
     return a.exec();
 }

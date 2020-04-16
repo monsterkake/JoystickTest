@@ -2,6 +2,8 @@
 #include <SDL2/SDL.h>
 #include <QDebug>
 
+#define MAX_AXIS_VALUE 32768
+
 DuJoystickManager::DuJoystickManager(QObject *parent)
     : QThread(parent)
 {
@@ -10,31 +12,21 @@ DuJoystickManager::DuJoystickManager(QObject *parent)
 
 void DuJoystickManager::run()
 {
+    SDL_Event event;
     while (true) {
-        SDL_Event event;
-        if (SDL_PollEvent(&event)) {
-            if (event.type == SDL_JOYBUTTONDOWN) {
-               emit SDL_joyButtonDown(event.jbutton.button);
-            } else if (event.type == SDL_JOYAXISMOTION) {
-                switch (event.jaxis.axis) {
-                case AXIS_HORIZONTAL:
-                    if (event.jaxis.value < -32768/2) {
-                        emit SDL_joyButtonDown(LEFT);
-                    }
-                    if (event.jaxis.value > 32767/2){
-                        emit SDL_joyButtonDown(RIGHT);
-                    }
-                    break;
-                case AXIS_VERTICAL:
-                    if (event.jaxis.value < -32768/2) {
-                        emit SDL_joyButtonDown(UP);
-                    }
-                    if (event.jaxis.value > 32767/2) {
-                        emit SDL_joyButtonDown(DOWN);
-                    }
-                    break;
+        SDL_PollEvent(&event);
+        if (event.type == SDL_JOYBUTTONDOWN) {
+            emit SDL_joyButtonDown(0, NOT_AXIS ,event.jbutton.button);
+        }
+        else
+            if (event.type == SDL_JOYAXISMOTION) {
+                {
+                    if(event.jaxis.axis == AXIS_VERTICAL)
+                        emit SDL_joyButtonDown(event.jaxis.value, AXIS_VERTICAL, 0);
+                    if(event.jaxis.axis == AXIS_HORIZONTAL)
+                        emit SDL_joyButtonDown(event.jaxis.value, AXIS_HORIZONTAL, 0);
                 }
             }
-        }
+        msleep(10);
     }
 }

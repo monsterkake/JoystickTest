@@ -55,10 +55,10 @@ static const uint qt_meta_data_DuJoystickManager[] = {
        1,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    1,   19,    2, 0x06 /* Public */,
+       1,    3,   19,    2, 0x06 /* Public */,
 
  // signals: parameters
-    QMetaType::Void, QMetaType::Int,    2,
+    QMetaType::Void, QMetaType::Int, QMetaType::Int, QMetaType::Int,    2,    2,    2,
 
        0        // eod
 };
@@ -69,13 +69,13 @@ void DuJoystickManager::qt_static_metacall(QObject *_o, QMetaObject::Call _c, in
         DuJoystickManager *_t = static_cast<DuJoystickManager *>(_o);
         Q_UNUSED(_t)
         switch (_id) {
-        case 0: _t->SDL_joyButtonDown((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 0: _t->SDL_joyButtonDown((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2])),(*reinterpret_cast< int(*)>(_a[3]))); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
         int *result = reinterpret_cast<int *>(_a[0]);
         {
-            using _t = void (DuJoystickManager::*)(int );
+            using _t = void (DuJoystickManager::*)(int , int , int );
             if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&DuJoystickManager::SDL_joyButtonDown)) {
                 *result = 0;
                 return;
@@ -121,9 +121,9 @@ int DuJoystickManager::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 }
 
 // SIGNAL 0
-void DuJoystickManager::SDL_joyButtonDown(int _t1)
+void DuJoystickManager::SDL_joyButtonDown(int _t1, int _t2, int _t3)
 {
-    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
+    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(&_t1)), const_cast<void*>(reinterpret_cast<const void*>(&_t2)), const_cast<void*>(reinterpret_cast<const void*>(&_t3)) };
     QMetaObject::activate(this, &staticMetaObject, 0, _a);
 }
 QT_WARNING_POP
