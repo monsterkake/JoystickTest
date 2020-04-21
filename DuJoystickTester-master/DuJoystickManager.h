@@ -52,11 +52,26 @@ class DuJoystickManager : public QThread
 {
     Q_OBJECT
 public:
+    int X = 0;
+    int Y = 0;
     DuJoystickManager(QObject *parent = nullptr);
 signals:
     void SDL_joyButtonDown(int);
     void SDL_joyAxisMotion(int,int);
     void getConfiguration(int, int, int, int);
+protected:
+    void run() override;
+
+};
+
+class TreadForLoop : public QThread
+{
+    Q_OBJECT
+public:
+    DuJoystickManager* ptr ;
+    TreadForLoop(QObject *parent = nullptr);
+signals:
+    void sendData(int,int);
 protected:
     void run() override;
 

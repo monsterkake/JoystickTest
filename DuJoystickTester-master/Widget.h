@@ -10,6 +10,7 @@ class Widget;
 }
 
 class DuJoystickManager;
+class TreadForLoop;
 
 class Widget : public QWidget
 {
@@ -23,10 +24,12 @@ private slots:
 private:
     Ui::Widget *ui;
     DuJoystickManager *mJoyManager;
+    TreadForLoop *treadForLoop;
 
     void manageJoystickButton(int button);
     void manageJoystickAxis(int axisValue,int axis);
     void displayConfiguration(int, int, int, int);
+    void moveEntity(int,int);
 };
 
 #endif // WIDGET_H
