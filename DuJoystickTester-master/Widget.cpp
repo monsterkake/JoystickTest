@@ -4,6 +4,7 @@
 #include <QMessageBox>
 #include <QThread>
 
+
 #define MAX_AXIS_VALUE 32768
 
 Widget::Widget(QWidget *parent)
@@ -15,7 +16,11 @@ Widget::Widget(QWidget *parent)
     mJoyManager = new DuJoystickManager(this);
     mJoyManager->start();
     connect(mJoyManager, &DuJoystickManager::SDL_joyButtonDown, this,
-            &Widget::manageJoystick);
+            &Widget::manageJoystickButton);
+    connect(mJoyManager, &DuJoystickManager::SDL_joyAxisMotion, this,
+            &Widget::manageJoystickAxis);
+    connect(mJoyManager, &DuJoystickManager::getConfiguration, this,
+            &Widget::displayConfiguration);
 }
 
 Widget::~Widget()
@@ -24,80 +29,33 @@ Widget::~Widget()
     delete ui;
 }
 
-void Widget::manageJoystick(int speed, int axis, int button)
+void Widget::manageJoystickButton(int button)
 {
+        ui->textEdit->append("buttonDown: " + QString::number(button));
+}
+
+void Widget::manageJoystickAxis(int axisValue, int axis)
+{
+    ui->label->setText("value = " + QString::number(axisValue));
+    ui->label_2->setText("axis = " + QString::number(axis));
+
     if(axis == AXIS_VERTICAL){
-            ui->pushButton->move(ui->pushButton->pos().x(), ui->pushButton->pos().y() + 8*speed/MAX_AXIS_VALUE);
-            ui->label->setText(QString::number(speed));
+        ui->pushButton->move(ui->pushButton->pos().x(), ui->pushButton->pos().y() + 4*axisValue/MAX_AXIS_VALUE);
     }
     if(axis == AXIS_HORIZONTAL){
-            ui->pushButton->move(ui->pushButton->pos().x() +8*speed/MAX_AXIS_VALUE, ui->pushButton->pos().y());
-            ui->label->setText(QString::number(speed));
+        ui->pushButton->move(ui->pushButton->pos().x() +4*axisValue/MAX_AXIS_VALUE, ui->pushButton->pos().y());
     }
+}
 
-    //if(axis == NOT_AXIS)
-    if(false)
-    switch(button){
-    case BUTTON1: {
-        QMessageBox::information(this, "OK"," Button1 ");
-        break;
-    }
-    case BUTTON2:{
-        QMessageBox::information(this, "OK"," Button2 ");
-        break;
-    }
-    case BUTTON3:{
-        QMessageBox::information(this, "OK"," Button3 ");
-        break;
-    }
-    case BUTTON4:{
-        QMessageBox::information(this, "OK"," Button4 ");
-        break;
-    }
-    case BUTTON5:{
-        QMessageBox::information(this, "OK"," Button5 ");
-        break;
-    }
-    case BUTTON6:{
-        QMessageBox::information(this, "OK"," Button6 ");
-        break;
-    }
-    case BUTTON7:{
-        QMessageBox::information(this, "OK"," Button7 ");
-        break;
-    }
-    case BUTTON8:{
-        QMessageBox::information(this, "OK"," Button8 ");
-        break;
-    }
-    case BUTTON9:{
-        QMessageBox::information(this, "OK"," Button9 ");
-        break;
-    }
-    case BUTTON10:{
-        QMessageBox::information(this, "OK"," Button10 ");
-        break;
-    }
-    case BUTTON11:{
-        QMessageBox::information(this, "OK"," Button11 ");
-        break;
-    }
-    case BUTTON12:{
-        QMessageBox::information(this, "OK"," Button12 ");
-        break;
-    }
-    case BUTTON13:{
-        QMessageBox::information(this, "OK"," Button13 ");
-        break;
-    }
-    case BUTTON14:{
-        QMessageBox::information(this, "OK"," Button14 ");
-        break;
-    }
-    }
+void Widget::displayConfiguration(int axes, int buttons, int balls, int hats)
+{
+    ui->textEdit->append("Joystick has " + QString::number(axes) + " axes." );
+    ui->textEdit->append("Joystick has " + QString::number(buttons) + " buttons." );
+    ui->textEdit->append("Joystick has " + QString::number(balls) + " balls." );
+    ui->textEdit->append("Joystick has " + QString::number(hats) + " hats." );
 }
 
 void Widget::on_pushButton_clicked()
 {
-    QMessageBox::information(this, "OK"," click ");
+
 }

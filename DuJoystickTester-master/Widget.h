@@ -2,6 +2,7 @@
 #define WIDGET_H
 
 #include <QWidget>
+#include <SDL2/SDL.h>
 
 namespace Ui
 {
@@ -23,7 +24,9 @@ private:
     Ui::Widget *ui;
     DuJoystickManager *mJoyManager;
 
-    void manageJoystick(int speed,int axis,int button);
+    void manageJoystickButton(int button);
+    void manageJoystickAxis(int axisValue,int axis);
+    void displayConfiguration(int, int, int, int);
 };
 
 #endif // WIDGET_H

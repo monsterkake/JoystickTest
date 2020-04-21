@@ -25,6 +25,21 @@ enum JoystickButton
     RIGHT
 };
 
+//enum JoyHatDirection
+//{
+//    SDL_HAT_CENTERED,
+
+//    SDL_HAT_LEFT,
+//    SDL_HAT_RIGHT,
+//    SDL_HAT_DOWN,
+//    SDL_HAT_UP,
+
+//    SDL_HAT_LEFTUP,
+//    SDL_HAT_LEFTDOWN,
+//    SDL_HAT_RIGHTDOWN,
+//    SDL_HAT_RIGHTUP,
+//};
+
 enum JoysitckAxis
 {
     AXIS_HORIZONTAL,
@@ -39,7 +54,9 @@ class DuJoystickManager : public QThread
 public:
     DuJoystickManager(QObject *parent = nullptr);
 signals:
-    void SDL_joyButtonDown(int, int, int);
+    void SDL_joyButtonDown(int);
+    void SDL_joyAxisMotion(int,int);
+    void getConfiguration(int, int, int, int);
 protected:
     void run() override;
 

@@ -7,26 +7,32 @@
 DuJoystickManager::DuJoystickManager(QObject *parent)
     : QThread(parent)
 {
-    SDL_JoystickOpen(0);
+
 }
 
 void DuJoystickManager::run()
-{
+{ 
     SDL_Event event;
-    while (true) {
-        SDL_PollEvent(&event);
+    SDL_Joystick *joystick;
+    joystick = SDL_JoystickOpen(0);
+    SDL_Init(SDL_INIT_JOYSTICK);
+    SDL_JoystickEventState(SDL_ENABLE);
+    emit getConfiguration(SDL_JoystickNumAxes(joystick),
+                          SDL_JoystickNumButtons(joystick),
+                          SDL_JoystickNumBalls(joystick),
+                          SDL_JoystickNumHats(joystick));
+
+    while (SDL_WaitEvent(&event)) {
         if (event.type == SDL_JOYBUTTONDOWN) {
-            emit SDL_joyButtonDown(0, NOT_AXIS ,event.jbutton.button);
+            emit SDL_joyButtonDown(event.jbutton.button);
         }
         else
             if (event.type == SDL_JOYAXISMOTION) {
-                {
-                    if(event.jaxis.axis == AXIS_VERTICAL)
-                        emit SDL_joyButtonDown(event.jaxis.value, AXIS_VERTICAL, 0);
-                    if(event.jaxis.axis == AXIS_HORIZONTAL)
-                        emit SDL_joyButtonDown(event.jaxis.value, AXIS_HORIZONTAL, 0);
-                }
+                    emit SDL_joyAxisMotion(event.jaxis.value, event.jaxis.axis);
             }
+
         msleep(10);
     }
 }
+
+
