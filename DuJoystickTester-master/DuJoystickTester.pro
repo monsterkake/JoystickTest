@@ -20,11 +20,13 @@ LIBS += -lSDL2
 DEFINES += SDL_MAIN_HANDLED
 
 SOURCES += main.cpp\
+    ThreadForLoop.cpp \
         Widget.cpp \
     DuJoystickManager.cpp
 
 HEADERS  += Widget.h \
-    DuJoystickManager.h
+    DuJoystickManager.h \
+    ThreadForLoop.h
 
 FORMS    += Widget.ui
 

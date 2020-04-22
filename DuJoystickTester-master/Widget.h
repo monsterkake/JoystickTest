@@ -27,7 +27,6 @@ private:
     TreadForLoop *treadForLoop;
 
     void manageJoystickButton(int button);
-    void manageJoystickAxis(int axisValue,int axis);
     void displayConfiguration(int, int, int, int);
     void moveEntity(int,int);
 };

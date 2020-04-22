@@ -18,12 +18,12 @@
     <rect>
      <x>160</x>
      <y>140</y>
-     <width>80</width>
-     <height>21</height>
+     <width>41</width>
+     <height>41</height>
     </rect>
    </property>
    <property name="text">
-    <string>PushButton</string>
+    <string/>
    </property>
   </widget>
   <widget class="QLabel" name="label">
@@ -31,7 +31,7 @@
     <rect>
      <x>40</x>
      <y>30</y>
-     <width>81</width>
+     <width>141</width>
      <height>16</height>
     </rect>
    </property>
@@ -44,7 +44,7 @@
     <rect>
      <x>40</x>
      <y>50</y>
-     <width>81</width>
+     <width>141</width>
      <height>16</height>
     </rect>
    </property>
